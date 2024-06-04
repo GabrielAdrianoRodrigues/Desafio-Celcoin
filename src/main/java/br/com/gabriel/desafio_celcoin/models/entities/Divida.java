@@ -2,9 +2,11 @@ package br.com.gabriel.desafio_celcoin.models.entities;
 
 import java.time.LocalDate;
 
+import br.com.gabriel.desafio_celcoin.models.enums.DividaStatus;
 import br.com.gabriel.desafio_celcoin.models.forms.DividaForm;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,11 +36,9 @@ public class Divida {
     @Column(name = "qtd_parcelas", nullable = false)
     private Short numeroParcelas;
 
-    @Column(name = "is_paga", nullable = false)
-    private Boolean isPaga;
-
-    @Column(name = "is_ativa", nullable = false)
-    private Boolean isAtiva;
+    @Enumerated
+    @Column(name = "status", nullable = false)
+    private DividaStatus status;
 
     public Divida(DividaForm form) {
         this.valorTotal = form.valorTotal();
@@ -48,7 +48,6 @@ public class Divida {
 
     @PrePersist
     public void prePersist() {
-        this.isPaga = false;
-        this.isAtiva = true;
+        this.status = DividaStatus.ATIVA;
     }
 }

@@ -1,4 +1,4 @@
-package br.com.gabriel.desafio_celcoin.config;
+package br.com.gabriel.desafio_celcoin.models.filters;
 
 import java.util.Optional;
 

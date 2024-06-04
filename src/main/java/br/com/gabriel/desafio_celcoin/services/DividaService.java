@@ -8,12 +8,13 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.gabriel.desafio_celcoin.config.PageSpecification;
 import br.com.gabriel.desafio_celcoin.models.dtos.DividaDTO;
+import br.com.gabriel.desafio_celcoin.models.dtos.Page;
 import br.com.gabriel.desafio_celcoin.models.dtos.ParcelaDTO;
 import br.com.gabriel.desafio_celcoin.models.entities.Divida;
 import br.com.gabriel.desafio_celcoin.models.entities.Parcela;
 import br.com.gabriel.desafio_celcoin.models.filters.DividaFilter;
+import br.com.gabriel.desafio_celcoin.models.filters.PageSpecification;
 import br.com.gabriel.desafio_celcoin.models.forms.DividaForm;
 import br.com.gabriel.desafio_celcoin.repositories.ParcelaRepository;
 import br.com.gabriel.desafio_celcoin.repositories.divida.DividaRepository;
@@ -29,13 +30,20 @@ public class DividaService {
     @Autowired
     private ParcelaRepository parcelaRepository;
 
-    public List<DividaDTO> buscarDividas(DividaFilter filtro, PageSpecification pagina) {
-        return null;
+    public Page<DividaDTO> buscarDividas(DividaFilter filtro, PageSpecification pagina) {
+        return new Page<DividaDTO>(
+            dividaRepository.buscarDividas(filtro, pagina).stream().map(x -> {
+                return new DividaDTO(x, parcelaRepository.findAllByDividaId(x.getId()).stream().map(ParcelaDTO::new).collect(Collectors.toList()));
+            }).collect(Collectors.toList()),
+            dividaRepository.buscarDividasCount(filtro),
+            pagina.size(),
+            pagina.page()
+        );
     }
 
     public DividaDTO buscarDividaPorId(Long dividaId) {
         var divida = dividaRepository.findById(dividaId).orElseThrow(EntityNotFoundException::new);
-        return new DividaDTO(divida, parcelaRepository.findByDividaId(divida.getId()).stream().map(ParcelaDTO::new).collect(Collectors.toList()));
+        return new DividaDTO(divida, parcelaRepository.findAllByDividaId(divida.getId()).stream().map(ParcelaDTO::new).collect(Collectors.toList()));
     }
 
     public DividaDTO registrarDivida(@Valid DividaForm form) {

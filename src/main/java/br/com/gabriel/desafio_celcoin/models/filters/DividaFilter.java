@@ -15,31 +15,5 @@ public record DividaFilter(
     Short numeroParcelasMaxima,
     Short numeroParcelasPagas,
     Short numeroParcelasFaltantes,
-    Short isPaga
-) {
-    public boolean containsValorFilter() {
-        return (
-            valorTotal  != null ||
-            valorMinimo != null ||
-            valorMaximo != null
-        );
-    }
-
-    public boolean containsParcelasFilter() {
-        return (
-            numeroParcelas          != null || 
-            numeroParcelasMinima    != null || 
-            numeroParcelasMaxima    != null || 
-            numeroParcelasPagas     != null ||
-            numeroParcelasFaltantes != null
-        );
-    }
-
-    public boolean containsDataVencimentoFilter() {
-        return (
-            dataVencimento       != null || 
-            dataVencimentoMinima != null || 
-            dataVencimentoMaxima != null 
-        );
-    }
-}
+    Short status
+) {}

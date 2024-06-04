@@ -4,14 +4,12 @@ import br.com.gabriel.desafio_celcoin.models.entities.Parcela;
 
 public record ParcelaDTO(
     Double valorParcela,
-    Short numParcela,
-    Boolean isPaga
+    Short numParcela
 ) {
     public ParcelaDTO(Parcela parcela) {
         this(
             parcela.getValorParcela(),
-            parcela.getNumParcela(),
-            parcela.getIsPaga()
+            parcela.getNumParcela()
         );
     }
 }

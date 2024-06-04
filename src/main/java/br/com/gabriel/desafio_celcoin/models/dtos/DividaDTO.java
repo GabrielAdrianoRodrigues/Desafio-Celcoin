@@ -12,7 +12,6 @@ public record DividaDTO(
     String nomeCredor,
     LocalDate dataVencimento,
     Short numeroParcelas,
-    Boolean isPaga,
     List<ParcelaDTO> parcelas
 ) {
     public DividaDTO(Divida divida, List<ParcelaDTO> parcelas) {
@@ -22,7 +21,6 @@ public record DividaDTO(
             divida.getNomeCredor(),
             divida.getDataVencimento(),
             divida.getNumeroParcelas(),
-            divida.getIsPaga(),
             parcelas
         );
     }

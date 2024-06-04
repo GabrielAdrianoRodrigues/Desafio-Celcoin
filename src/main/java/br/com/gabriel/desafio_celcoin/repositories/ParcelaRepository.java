@@ -7,5 +7,5 @@ import java.util.List;
 
 
 public interface ParcelaRepository extends JpaRepository<Parcela, Long> {
-    List<Parcela> findByDividaId(Long dividaId);
+    List<Parcela> findAllByDividaId(Long dividaId);
 }
