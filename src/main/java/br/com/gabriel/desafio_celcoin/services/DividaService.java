@@ -1,5 +1,6 @@
 package br.com.gabriel.desafio_celcoin.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ import br.com.gabriel.desafio_celcoin.models.filters.PageSpecification;
 import br.com.gabriel.desafio_celcoin.models.forms.DividaForm;
 import br.com.gabriel.desafio_celcoin.repositories.ParcelaRepository;
 import br.com.gabriel.desafio_celcoin.repositories.divida.DividaRepository;
+import br.com.gabriel.desafio_celcoin.utils.DateUtils;
 import br.com.gabriel.desafio_celcoin.utils.MathUtils;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -49,12 +51,17 @@ public class DividaService {
     public DividaDTO registrarDivida(@Valid DividaForm form) {
         var divida = dividaRepository.save(new Divida(form));
         List<Parcela> parcelas = new ArrayList<>();
-        IntStream.range(1, divida.getNumeroParcelas()+1).forEach(x -> {
+        IntStream.range(0, divida.getNumeroParcelas()).forEach(x -> {
             parcelas.add(
                 Parcela.builder()
                     .dividaId(divida.getId())
                     .numParcela((short) x)
                     .valorParcela(MathUtils.calcularValorParcela(divida))
+                    .dataVencimento(DateUtils.calcularDataProximaParcela(
+                            x == 0 ? LocalDate.now() : parcelas.get(x-1).getDataVencimento(), 
+                            divida.getDiaVencimentoParcela()
+                        )
+                    )
                 .build()
             );
         });

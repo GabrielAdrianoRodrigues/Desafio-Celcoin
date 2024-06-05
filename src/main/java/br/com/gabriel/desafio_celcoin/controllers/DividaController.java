@@ -37,6 +37,6 @@ public class DividaController {
     @PostMapping
     public ResponseEntity<?> registrarDivida(@RequestBody@Valid DividaForm form, UriComponentsBuilder uriBuilder) {
         var dto = dividaService.registrarDivida(form);
-        return ResponseEntity.created(uriBuilder.path("divida/{dividaId}").buildAndExpand(dto.id()).toUri()).body(dto);
+        return ResponseEntity.created(uriBuilder.path("divida/{dividaId}").buildAndExpand(dto.getId()).toUri()).body(dto);
     }
 }

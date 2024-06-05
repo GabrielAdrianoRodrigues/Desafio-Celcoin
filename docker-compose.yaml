@@ -1,0 +1,21 @@
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=root
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/bu-credito
+    ports:
+      - 8080:8080
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=bu-credito'
+      - 'POSTGRES_PASSWORD=root'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432'

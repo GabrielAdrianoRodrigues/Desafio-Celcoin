@@ -32,19 +32,18 @@ public class Parcela {
     @Column(name = "num_parcela", nullable = false)
     private Short numParcela;
 
-    @Column(name = "valor_juros")
-    private Double valorJuros;
-
     @Column(name = "dt_vencimento", nullable = false)
     private LocalDate dataVencimento; 
 
+    @Column(name = "dt_pagamento")
+    private LocalDate dataPagamento;
+
     @Enumerated
-    @Column(name = "status", nullable = false)
+    @Column(name = "par_status", nullable = false)
     private ParcelaStatus status;
 
     @PrePersist
     public void prePersist() {
-        this.valorJuros =  0.0;
         this.status = ParcelaStatus.ABERTA;
     }
 

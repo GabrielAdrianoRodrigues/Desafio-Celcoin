@@ -1,7 +1,5 @@
 package br.com.gabriel.desafio_celcoin.models.forms;
 
-import java.time.LocalDate;
-
 import org.hibernate.validator.constraints.Range;
 
 import jakarta.validation.constraints.NotBlank;
@@ -9,13 +7,15 @@ import jakarta.validation.constraints.NotNull;
 
 public record DividaForm(
     @NotNull
-    @Range(min = 0, max = Long.MAX_VALUE)
+    @Range
     Double valorTotal,
     @NotBlank
     String nomeCredor,
     @NotNull
-    LocalDate dataVencimento,
-    @NotNull
-    @Range(min = 0, max = 60)
-    Short numeroParcelas
+    @Range(max = 60)
+    Short numeroParcelas,
+    @Range(min = 1, max = 31)
+    Short diaVencimentoParcela,
+    @Range(min = 0, max = 2)
+    Double taxaJuros
 ) {}

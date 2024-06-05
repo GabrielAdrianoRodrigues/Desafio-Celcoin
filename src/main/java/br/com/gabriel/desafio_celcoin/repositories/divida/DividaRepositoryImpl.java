@@ -53,9 +53,9 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
         if(filtro.status() != null) {        
             sql.append(
                 switch(filtro.status()) {
-                    case 0 -> "AND bd.status = 0";
-                    case 1 -> "AND bd.status = 1";
-                    case 2 -> "AND bd.status = 2";
+                    case 0 -> "AND bd.div_status = 0";
+                    case 1 -> "AND bd.div_status = 1";
+                    case 2 -> "AND bd.div_status = 2";
                     default -> "";
                 }
             );
@@ -143,9 +143,9 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
         if(filtro.status() != null) {        
             sql.append(
                 switch(filtro.status()) {
-                    case 0 -> "AND bd.status = 0";
-                    case 1 -> "AND bd.status = 1";
-                    case 2 -> "AND bd.status = 2";
+                    case 0 -> "AND bd.div_status = 0";
+                    case 1 -> "AND bd.div_status = 1";
+                    case 2 -> "AND bd.div_status = 2";
                     default -> "";
                 }
             );
