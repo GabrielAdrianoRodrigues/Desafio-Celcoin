@@ -19,7 +19,7 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long> {
     @Query(value = """
             UPDATE bu_parcelas SET
                 par_status = 1,
-                dt_pagamento = now(),
+                dt_pagamento = now()
             WHERE id = :parcelaId
         """
         , nativeQuery = true

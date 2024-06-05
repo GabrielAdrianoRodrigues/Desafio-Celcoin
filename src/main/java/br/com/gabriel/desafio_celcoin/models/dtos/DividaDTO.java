@@ -34,7 +34,7 @@ public class DividaDTO {
         this.numeroParcelas = divida.getNumeroParcelas();
         this.status = divida.getStatus();
         this.parcelasPagas = totalParcelasPagas;
-        this.parcelasVencidas = parcelas.stream() .filter(x -> x.status().equals(ParcelaStatus.VENCIDA)).collect(Collectors.toList()).size();
+        this.parcelasVencidas = parcelas.stream().filter(x -> x.status().equals(ParcelaStatus.VENCIDA)).collect(Collectors.toList()).size();
         this.parcelas = parcelas;
     }
 }

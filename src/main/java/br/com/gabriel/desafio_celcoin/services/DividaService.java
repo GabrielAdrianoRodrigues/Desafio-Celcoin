@@ -44,8 +44,10 @@ public class DividaService {
     }
 
     public DividaDTO buscarDividaPorId(Long dividaId) {
-        var divida = dividaRepository.findById(dividaId).orElseThrow(EntityNotFoundException::new);
-        return new DividaDTO(divida, parcelaRepository.findAllByDividaId(divida.getId()).stream().map(ParcelaDTO::new).collect(Collectors.toList()));
+        return new DividaDTO(
+            dividaRepository.findById(dividaId).orElseThrow(EntityNotFoundException::new),
+            parcelaRepository.findAllByDividaId(dividaId).stream().map(ParcelaDTO::new).collect(Collectors.toList())
+        );
     }
 
     public DividaDTO registrarDivida(@Valid DividaForm form) {
