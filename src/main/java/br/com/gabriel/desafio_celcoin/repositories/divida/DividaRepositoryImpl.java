@@ -27,11 +27,11 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
         }
         
         if (filtro.numeroParcelasPagas() != null && filtro.numeroParcelas() > 0) {
-            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND is_paga IS TRUE) >= :parcelasPagas ");
+            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND par_status = 1) = :parcelasPagas ");
         }
 
         if (filtro.numeroParcelasFaltantes() != null && filtro.numeroParcelasFaltantes() > 0) {
-            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND is_paga IS FALSE) >= :parcelasFaltantes ");
+            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND par_status IN (0, 3)) >= :parcelasFaltantes ");
         }
 
         if (filtro.valorTotal() != null && filtro.valorTotal() > 0) {
@@ -44,10 +44,10 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
             sql.append("AND bd.nm_credor ILIKE :nmCredor ");
         }
 
-        if (filtro.dataVencimento() != null) {
-            sql.append("AND bd.dt_vencimento = :dtVencimento ");
-        } else if (filtro.dataVencimentoMinima() != null && filtro.dataVencimentoMaxima() != null) {
-            sql.append("AND bd.dt_vencimento BETWEEN :dtVencimentoMin AND :dtVencimentoMax ");
+        if (filtro.diaVencimentoParcela() != null && filtro.diaVencimentoParcela() > 0) {
+            sql.append("AND bd.dt_venc_parcela = :diaVencimentoParcela ");
+        } else if (filtro.diaVencimentoParcelaMinima() != null && filtro.diaVencimentoParcelaMinima() > 0 && filtro.diaVencimentoParcelaMaxima() != null && filtro.diaVencimentoParcelaMaxima() > 0) {
+            sql.append("AND bd.dt_venc_parcela BETWEEN :diaVencimentoParcelaMinima AND :diaVencimentoParcelaMaxima ");
         }
         
         if(filtro.status() != null) {        
@@ -71,36 +71,36 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
             .setParameter("page", pagina.page());
 
         if (filtro.numeroParcelas() != null && filtro.numeroParcelas() > 0) {
-            query.setParameter(0, filtro.numeroParcelas());
+            query.setParameter("nmParcelas", filtro.numeroParcelas());
         } else if (filtro.numeroParcelasMinima() != null && filtro.numeroParcelasMinima() > 0 && filtro.numeroParcelasMaxima() != null && filtro.numeroParcelasMaxima() > 0) {
-            query.setParameter(0, filtro.numeroParcelasMinima());
-            query.setParameter(0, filtro.numeroParcelasMaxima());
+            query.setParameter("minParcelas", filtro.numeroParcelasMinima());
+            query.setParameter("maxParcelas", filtro.numeroParcelasMaxima());
         }
         
         if (filtro.numeroParcelasPagas() != null && filtro.numeroParcelasPagas() > 0) {
-            query.setParameter(0, filtro.numeroParcelasPagas());
+            query.setParameter("parcelasPagas", filtro.numeroParcelasPagas());
         }
 
         if (filtro.numeroParcelasFaltantes() != null && filtro.numeroParcelasFaltantes() > 0) {
-            query.setParameter(0, filtro.numeroParcelasFaltantes());
+            query.setParameter("parcelasFaltantes", filtro.numeroParcelasFaltantes());
         }
 
         if (filtro.valorTotal() != null && filtro.valorTotal() > 0) {
-            query.setParameter(0, filtro.valorTotal());
+            query.setParameter("valorTotal", filtro.valorTotal());
         } else if (filtro.valorMinimo() != null && filtro.valorMinimo() > 0 && filtro.valorMaximo() != null && filtro.valorMaximo() > 0) {
-            query.setParameter(0, filtro.valorMinimo());
-            query.setParameter(0, filtro.valorMaximo());
+            query.setParameter("minValor", filtro.valorMinimo());
+            query.setParameter("maxValor", filtro.valorMaximo());
         }
 
         if (filtro.nomeCredor() != null) {
             query.setParameter(0, filtro.nomeCredor());
         }
 
-        if (filtro.dataVencimento() != null) {
-            query.setParameter(0, filtro.dataVencimento());
-        } else if (filtro.dataVencimentoMinima() != null && filtro.dataVencimentoMaxima() != null) {
-            query.setParameter(0, filtro.dataVencimentoMinima());
-            query.setParameter(0, filtro.dataVencimentoMaxima());
+        if (filtro.diaVencimentoParcela() != null && filtro.diaVencimentoParcela() > 0) {
+            query.setParameter("diaVencimentoParcela", filtro.diaVencimentoParcela());
+        } else if (filtro.diaVencimentoParcelaMinima() != null && filtro.diaVencimentoParcelaMinima() > 0 && filtro.diaVencimentoParcelaMaxima() != null && filtro.diaVencimentoParcelaMaxima() > 0) {
+            query.setParameter("diaVencimentoParcelaMinima", filtro.diaVencimentoParcelaMinima());
+            query.setParameter("diaVencimentoParcelaMaxima", filtro.diaVencimentoParcelaMaxima());
         }
 
         return (List<Divida>) query.getResultList();
@@ -117,11 +117,11 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
         }
         
         if (filtro.numeroParcelasPagas() != null && filtro.numeroParcelas() > 0) {
-            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND is_paga IS TRUE) >= :parcelasPagas ");
+            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND par_status = 1) = :parcelasPagas ");
         }
 
         if (filtro.numeroParcelasFaltantes() != null && filtro.numeroParcelasFaltantes() > 0) {
-            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND is_paga IS FALSE) >= :parcelasFaltantes ");
+            sql.append("AND (SELECT COUNT(*) FROM bu_parcelas bp WHERE bp.fk_divida_id = bd.id AND par_status IN (0, 3)) >= :parcelasFaltantes ");
         }
 
         if (filtro.valorTotal() != null && filtro.valorTotal() > 0) {
@@ -134,10 +134,10 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
             sql.append("AND bd.nm_credor ILIKE :nmCredor ");
         }
 
-        if (filtro.dataVencimento() != null) {
-            sql.append("AND bd.dt_vencimento = :dtVencimento ");
-        } else if (filtro.dataVencimentoMinima() != null && filtro.dataVencimentoMaxima() != null) {
-            sql.append("AND bd.dt_vencimento BETWEEN :dtVencimentoMin AND :dtVencimentoMax ");
+        if (filtro.diaVencimentoParcela() != null && filtro.diaVencimentoParcela() > 0) {
+            sql.append("AND bd.dt_venc_parcela = :diaVencimentoParcela ");
+        } else if (filtro.diaVencimentoParcelaMinima() != null && filtro.diaVencimentoParcelaMinima() > 0 && filtro.diaVencimentoParcelaMaxima() != null && filtro.diaVencimentoParcelaMaxima() > 0) {
+            sql.append("AND bd.dt_venc_parcela BETWEEN :diaVencimentoParcelaMinima AND :diaVencimentoParcelaMaxima ");
         }
 
         if(filtro.status() != null) {        
@@ -154,36 +154,36 @@ public class DividaRepositoryImpl implements DividaRepositoryCustom {
         Query query = em.createNativeQuery(sql.toString());
 
         if (filtro.numeroParcelas() != null && filtro.numeroParcelas() > 0) {
-            query.setParameter(0, filtro.numeroParcelas());
+            query.setParameter("nmParcelas", filtro.numeroParcelas());
         } else if (filtro.numeroParcelasMinima() != null && filtro.numeroParcelasMinima() > 0 && filtro.numeroParcelasMaxima() != null && filtro.numeroParcelasMaxima() > 0) {
-            query.setParameter(0, filtro.numeroParcelasMinima());
-            query.setParameter(0, filtro.numeroParcelasMaxima());
+            query.setParameter("minParcelas", filtro.numeroParcelasMinima());
+            query.setParameter("maxParcelas", filtro.numeroParcelasMaxima());
         }
         
         if (filtro.numeroParcelasPagas() != null && filtro.numeroParcelasPagas() > 0) {
-            query.setParameter(0, filtro.numeroParcelasPagas());
+            query.setParameter("parcelasPagas", filtro.numeroParcelasPagas());
         }
 
         if (filtro.numeroParcelasFaltantes() != null && filtro.numeroParcelasFaltantes() > 0) {
-            query.setParameter(0, filtro.numeroParcelasFaltantes());
+            query.setParameter("parcelasFaltantes", filtro.numeroParcelasFaltantes());
         }
 
         if (filtro.valorTotal() != null && filtro.valorTotal() > 0) {
-            query.setParameter(0, filtro.valorTotal());
+            query.setParameter("valorTotal", filtro.valorTotal());
         } else if (filtro.valorMinimo() != null && filtro.valorMinimo() > 0 && filtro.valorMaximo() != null && filtro.valorMaximo() > 0) {
-            query.setParameter(0, filtro.valorMinimo());
-            query.setParameter(0, filtro.valorMaximo());
+            query.setParameter("minValor", filtro.valorMinimo());
+            query.setParameter("maxValor", filtro.valorMaximo());
         }
 
         if (filtro.nomeCredor() != null) {
             query.setParameter(0, filtro.nomeCredor());
         }
 
-        if (filtro.dataVencimento() != null) {
-            query.setParameter(0, filtro.dataVencimento());
-        } else if (filtro.dataVencimentoMinima() != null && filtro.dataVencimentoMaxima() != null) {
-            query.setParameter(0, filtro.dataVencimentoMinima());
-            query.setParameter(0, filtro.dataVencimentoMaxima());
+        if (filtro.diaVencimentoParcela() != null && filtro.diaVencimentoParcela() > 0) {
+            query.setParameter("diaVencimentoParcela", filtro.diaVencimentoParcela());
+        } else if (filtro.diaVencimentoParcelaMinima() != null && filtro.diaVencimentoParcelaMinima() > 0 && filtro.diaVencimentoParcelaMaxima() != null && filtro.diaVencimentoParcelaMaxima() > 0) {
+            query.setParameter("diaVencimentoParcelaMinima", filtro.diaVencimentoParcelaMinima());
+            query.setParameter("diaVencimentoParcelaMaxima", filtro.diaVencimentoParcelaMaxima());
         }
 
         return ((BigInteger)query.getSingleResult()).longValue();

@@ -11,22 +11,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gabriel.desafio_celcoin.models.forms.PagamentoForm;
 import br.com.gabriel.desafio_celcoin.services.ParcelaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("parcela")
+@SecurityRequirement(name = "bearer-key")
 public class ParcelaController {
 
     @Autowired
     private ParcelaService parcelaService;
     
     @PatchMapping("pagar/{dividaId}/{numParcela}")
-    public ResponseEntity<?> pagarParcela(@PathVariable("dividaId") Long dividaId, @PathVariable("numParcela") Short numParcela) {
+    public ResponseEntity<String> pagarParcela(@PathVariable("dividaId") Long dividaId, @PathVariable("numParcela") Short numParcela) {
         return ResponseEntity.ok(parcelaService.pagarParcela(dividaId, numParcela));
     }
 
     @PutMapping("pagar/valor")
-    public ResponseEntity<?> pagarParcelaComValor(@RequestBody@Valid PagamentoForm form) {
+    public ResponseEntity<String> pagarParcelaComValor(@RequestBody@Valid PagamentoForm form) {
         return ResponseEntity.ok(parcelaService.pagarParcelaComValor(form));
     }
 }

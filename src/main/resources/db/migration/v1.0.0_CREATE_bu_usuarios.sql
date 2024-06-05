@@ -1,0 +1,5 @@
+CREATE TABLE bu_usuarios(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    pwd TEXT NOT NULL
+);

@@ -9,33 +9,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.gabriel.desafio_celcoin.models.dtos.DividaDTO;
+import br.com.gabriel.desafio_celcoin.models.dtos.Page;
 import br.com.gabriel.desafio_celcoin.models.filters.DividaFilter;
 import br.com.gabriel.desafio_celcoin.models.filters.PageSpecification;
 import br.com.gabriel.desafio_celcoin.models.forms.DividaForm;
 import br.com.gabriel.desafio_celcoin.services.DividaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("divida")    
+@SecurityRequirement(name = "bearer-key")
 public class DividaController {
     
     @Autowired
     private DividaService dividaService; 
     
     @GetMapping
-    public ResponseEntity<?> buscarDividas(DividaFilter filtro, PageSpecification pagina) {
+    public ResponseEntity<Page<DividaDTO>> buscarDividas(DividaFilter filtro, PageSpecification pagina) {
         return ResponseEntity.ok(dividaService.buscarDividas(filtro, pagina));
     }
 
     @GetMapping("{dividaId}")
-    public ResponseEntity<?> buscarDividaPorId(@PathVariable Long dividaId) {
+    public ResponseEntity<DividaDTO> buscarDividaPorId(@PathVariable Long dividaId) {
         return ResponseEntity.ok(dividaService.buscarDividaPorId(dividaId));
     }
     
     @PostMapping
-    public ResponseEntity<?> registrarDivida(@RequestBody@Valid DividaForm form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<DividaDTO> registrarDivida(@RequestBody@Valid DividaForm form, UriComponentsBuilder uriBuilder) {
         var dto = dividaService.registrarDivida(form);
         return ResponseEntity.created(uriBuilder.path("divida/{dividaId}").buildAndExpand(dto.getId()).toUri()).body(dto);
     }

@@ -1,15 +1,13 @@
 package br.com.gabriel.desafio_celcoin.models.filters;
 
-import java.time.LocalDate;
-
 public record DividaFilter(
     Double valorTotal,
     Double valorMinimo,
     Double valorMaximo,
     String nomeCredor,
-    LocalDate dataVencimento,
-    LocalDate dataVencimentoMinima,
-    LocalDate dataVencimentoMaxima,
+    Short diaVencimentoParcela,
+    Short diaVencimentoParcelaMinima,
+    Short diaVencimentoParcelaMaxima,
     Short numeroParcelas,
     Short numeroParcelasMinima,
     Short numeroParcelasMaxima,

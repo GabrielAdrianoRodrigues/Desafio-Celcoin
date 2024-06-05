@@ -1,4 +1,4 @@
-package br.com.gabriel.desafio_celcoin.config.security;
+package br.com.gabriel.desafio_celcoin.configs.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

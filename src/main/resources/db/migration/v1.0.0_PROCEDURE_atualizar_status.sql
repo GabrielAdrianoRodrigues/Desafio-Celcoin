@@ -1,6 +1,6 @@
 CREATE EXTENSION pg_cron;
 
-CREATE OR REPLACE PROCEDURE atualizarVencimento() LANGUAGE plpgsql AS $$        
+CREATE OR REPLACE PROCEDURE atualizarStatus() LANGUAGE plpgsql AS $$        
     BEGIN 
         UPDATE bu_parcelas SET
             par_status = 2
@@ -18,4 +18,4 @@ CREATE OR REPLACE PROCEDURE atualizarVencimento() LANGUAGE plpgsql AS $$
     END;
 $$
 
-SELECT cron.schedule('0 01 * * *', 'CALL atualizarVencimento()');
+SELECT cron.schedule('0 01 * * *', 'CALL atualizarStatus()');

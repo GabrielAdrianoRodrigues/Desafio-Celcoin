@@ -1,0 +1,1 @@
+INSERT INTO bu_usuarios(email, pwd) VALUES ('admin@bucredito.com.br', 'root');

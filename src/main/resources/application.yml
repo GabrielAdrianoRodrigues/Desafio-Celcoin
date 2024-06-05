@@ -20,3 +20,5 @@ server:
 springdoc:
     swagger-ui:
         path: /
+token:
+    secret: ${TOKEN_SECRET}

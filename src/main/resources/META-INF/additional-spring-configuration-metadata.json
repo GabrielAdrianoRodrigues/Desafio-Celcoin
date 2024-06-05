@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "token.secret",
+  "type": "java.lang.String",
+  "description": "Defina um secret para encryptar e criar um token"
+}]}
