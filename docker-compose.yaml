@@ -1,8 +1,7 @@
 services:
   api:
     container_name: api
-    build:
-      context: .
+    build: .
     depends_on:
       - postgres
     environment:
