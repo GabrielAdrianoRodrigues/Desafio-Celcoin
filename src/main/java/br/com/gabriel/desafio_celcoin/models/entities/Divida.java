@@ -10,13 +10,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "bu_dividas")
+@AllArgsConstructor@NoArgsConstructor
 public class Divida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

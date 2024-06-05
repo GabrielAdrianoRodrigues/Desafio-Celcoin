@@ -11,13 +11,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Builder
 @Table(name = "bu_parcelas")
+@AllArgsConstructor@NoArgsConstructor
 public class Parcela {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

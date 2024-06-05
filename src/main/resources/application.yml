@@ -14,9 +14,9 @@ spring:
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
-server:
-    error:
-        include-stacktrace: never
+# server:
+#     error:
+#         include-stacktrace: never
 springdoc:
     swagger-ui:
         path: /
