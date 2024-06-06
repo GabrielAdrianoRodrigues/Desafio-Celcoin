@@ -30,7 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         String tokenJWT = getJWTToken(request);
 
         if (tokenJWT != null) {
-            UserDetails authUser = usuarioRepository.findByEmail(tokenService.getSubject(tokenJWT));
+            UserDetails authUser = usuarioRepository.findByEmail(tokenService.getSubject(tokenJWT)); 
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(authUser, null, authUser.getAuthorities()));
         }
 
@@ -41,5 +41,5 @@ public class SecurityFilter extends OncePerRequestFilter {
         String tokenJWT = request.getHeader("Authorization");
         return tokenJWT != null ? tokenJWT.replace("Bearer ", "") : null;
     }
-
+    
 }

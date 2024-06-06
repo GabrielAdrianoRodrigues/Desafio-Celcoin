@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import br.com.gabriel.desafio_celcoin.models.forms.UsuarioForm;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,11 @@ public class Usuario implements UserDetails {
 
     @Column(name = "pwd", nullable = false)
     private String password;
+
+    public Usuario(UsuarioForm form) {
+        this.email = form.email();
+        this.password = new BCryptPasswordEncoder().encode(form.password());
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

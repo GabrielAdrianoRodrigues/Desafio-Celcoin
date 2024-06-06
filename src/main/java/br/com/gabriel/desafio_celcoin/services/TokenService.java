@@ -22,10 +22,10 @@ public class TokenService {
     public String tokenFactory(Usuario authUser) {
         try {
             return JWT.create()
-                .withIssuer("Desafio-Celcoin")
+                .withIssuer("DesafioCelcoin")
                 .withSubject(authUser.getUsername())
                 .withExpiresAt(expiresAt())
-            .sign(Algorithm.HMAC256(secret));
+                .sign(Algorithm.HMAC256(secret));
         } catch (JWTCreationException exception) {
             throw new RuntimeException("erro ao gerar token jwt", exception);
         }
@@ -34,7 +34,7 @@ public class TokenService {
     public String getSubject(String tokenJWT) {
         try {
             return JWT.require(Algorithm.HMAC256(secret))
-                .withIssuer("API Groove.bom")
+                .withIssuer("DesafioCelcoin")
                 .build()
                 .verify(tokenJWT)
             .getSubject();

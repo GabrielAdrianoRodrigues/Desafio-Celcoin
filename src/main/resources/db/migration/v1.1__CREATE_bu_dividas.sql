@@ -1,4 +1,4 @@
-CREATE TABLE bu_dividas(
+CREATE TABLE IF NOT EXISTS bu_dividas (
     id SERIAL PRIMARY KEY,
     valor_total DECIMAL(10,2) NOT NULL,
     nm_credor VARCHAR(255) NOT NULL,

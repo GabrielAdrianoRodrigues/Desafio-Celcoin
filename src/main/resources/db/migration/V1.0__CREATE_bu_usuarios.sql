@@ -1,5 +1,6 @@
-CREATE TABLE bu_usuarios(
+CREATE TABLE IF NOT EXISTS bu_usuarios(
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     pwd TEXT NOT NULL
 );
+

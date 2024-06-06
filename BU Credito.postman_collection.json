@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "dfdc306c-8b8b-4bbb-aaae-813cfbab76ae",
+		"name": "BU Credito",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36131821"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"string\",\n  \"password\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Dividas",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/divida?valorTotal=&valorMinimo&valorMaximo&nomeCredor&diaVencimentoParcela&diaVencimentoParcelaMinima&diaVencimentoParcelaMaxima&numeroParcelas&numeroParcelasMinima&numeroParcelasMaxima&numeroParcelasPagas&numeroParcelasFaltantes&status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"divida"
+					],
+					"query": [
+						{
+							"key": "valorTotal",
+							"value": "",
+							"description": "Numero com ponto flutuante"
+						},
+						{
+							"key": "valorMinimo",
+							"value": null,
+							"description": "Numero com ponto flutuante"
+						},
+						{
+							"key": "valorMaximo",
+							"value": null,
+							"description": "Numero com ponto flutuante"
+						},
+						{
+							"key": "nomeCredor",
+							"value": null,
+							"description": "String"
+						},
+						{
+							"key": "diaVencimentoParcela",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "diaVencimentoParcelaMinima",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "diaVencimentoParcelaMaxima",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "numeroParcelas",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "numeroParcelasMinima",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "numeroParcelasMaxima",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "numeroParcelasPagas",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "numeroParcelasFaltantes",
+							"value": null,
+							"description": "Inteiro"
+						},
+						{
+							"key": "status",
+							"value": null,
+							"description": "Inteiro entre 0 e 2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Divida Por Id",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/divida/{{dividaId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"divida",
+						"{{dividaId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Divida",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"valorTotal\": 0.0,\n  \"nomeCredor\": \"string\",\n  \"numeroParcelas\": 0,\n  \"diaVencimentoParcela\": 0,\n  \"taxaJuros\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/divida",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"divida"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pagar Parcela ",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parcela/pagar/{{dividaId}}/{{numParcela}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parcela",
+						"pagar",
+						"{{dividaId}}",
+						"{{numParcela}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pagar Parcela Valor",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"dividaId\": 0,\n  \"numParcela\": 0,\n  \"valor\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/parcela/pagar/valor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parcela",
+						"pagar",
+						"valor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Usuario Por Id",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/{{usuarioId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"{{usuarioId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"string\",\n  \"password\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

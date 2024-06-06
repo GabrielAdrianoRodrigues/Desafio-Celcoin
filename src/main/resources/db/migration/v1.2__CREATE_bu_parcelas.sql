@@ -1,4 +1,4 @@
-CREATE TABLE bu_parcelas(
+CREATE TABLE IF NOT EXISTS bu_parcelas(
     id SERIAL PRIMARY KEY,
     fk_divida_id BIGINT NOT NULL,
     valor_parcela DECIMAL(10, 0) NOT NULL,

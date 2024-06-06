@@ -21,4 +21,31 @@ public interface DividaRepository extends JpaRepository<Divida, Long>, DividaRep
         """, nativeQuery = true
     )
     void atualizarStatusDivida(@Param("dividaId") Long dividaId);
+
+    @Modifying
+    @Query(value = """
+            DO LANGUAGE plpgsql $$
+                BEGIN
+                    UPDATE bu_parcelas SET
+                        par_status = 2
+                    WHERE dt_vencimento < now()
+                        AND par_status = 0;
+
+                    UPDATE bu_dividas bd SET
+                        div_status = 2
+                    WHERE bd.div_status = 0
+                        AND EXISTS(
+                            SELECT FROM bu_parcelas bp
+                            WHERE bp.par_status = 2
+                                AND bp.fk_divida_id = bd.id
+                        );
+                END
+            $$;
+        """
+        , nativeQuery = true    
+    )
+    void atualizarStatus();
+
+    // @Procedure("atualizar_status")
+    // void atualizarStatus();
 }
