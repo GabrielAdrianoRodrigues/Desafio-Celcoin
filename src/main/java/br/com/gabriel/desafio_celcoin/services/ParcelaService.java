@@ -3,7 +3,7 @@ package br.com.gabriel.desafio_celcoin.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.gabriel.desafio_celcoin.models.forms.PagamentoForm;
+import br.com.gabriel.desafio_celcoin.domain.forms.PagamentoForm;
 import br.com.gabriel.desafio_celcoin.repositories.ParcelaRepository;
 import br.com.gabriel.desafio_celcoin.repositories.divida.DividaRepository;
 import jakarta.persistence.EntityNotFoundException;

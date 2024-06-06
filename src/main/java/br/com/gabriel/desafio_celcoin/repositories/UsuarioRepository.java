@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.gabriel.desafio_celcoin.models.entities.Usuario;
+import br.com.gabriel.desafio_celcoin.domain.entities.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     UserDetails findByEmail(String email);

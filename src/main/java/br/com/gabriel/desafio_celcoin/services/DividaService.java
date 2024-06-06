@@ -9,14 +9,14 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.gabriel.desafio_celcoin.models.dtos.DividaDTO;
-import br.com.gabriel.desafio_celcoin.models.dtos.Page;
-import br.com.gabriel.desafio_celcoin.models.dtos.ParcelaDTO;
-import br.com.gabriel.desafio_celcoin.models.entities.Divida;
-import br.com.gabriel.desafio_celcoin.models.entities.Parcela;
-import br.com.gabriel.desafio_celcoin.models.filters.DividaFilter;
-import br.com.gabriel.desafio_celcoin.models.filters.PageSpecification;
-import br.com.gabriel.desafio_celcoin.models.forms.DividaForm;
+import br.com.gabriel.desafio_celcoin.domain.dtos.DividaDTO;
+import br.com.gabriel.desafio_celcoin.domain.dtos.Page;
+import br.com.gabriel.desafio_celcoin.domain.dtos.ParcelaDTO;
+import br.com.gabriel.desafio_celcoin.domain.entities.Divida;
+import br.com.gabriel.desafio_celcoin.domain.entities.Parcela;
+import br.com.gabriel.desafio_celcoin.domain.filters.DividaFilter;
+import br.com.gabriel.desafio_celcoin.domain.filters.PageSpecification;
+import br.com.gabriel.desafio_celcoin.domain.forms.DividaForm;
 import br.com.gabriel.desafio_celcoin.repositories.ParcelaRepository;
 import br.com.gabriel.desafio_celcoin.repositories.divida.DividaRepository;
 import br.com.gabriel.desafio_celcoin.utils.DateUtils;
@@ -57,7 +57,7 @@ public class DividaService {
             parcelas.add(
                 Parcela.builder()
                     .dividaId(divida.getId())
-                    .numParcela((short) x)
+                    .numParcela((short) (x+1))
                     .valorParcela(MathUtils.calcularValorParcela(divida))
                     .dataVencimento(DateUtils.calcularDataProximaParcela(
                             x == 0 ? LocalDate.now() : parcelas.get(x-1).getDataVencimento(), 

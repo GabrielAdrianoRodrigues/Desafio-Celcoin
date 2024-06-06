@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.gabriel.desafio_celcoin.models.entities.Parcela;
+import br.com.gabriel.desafio_celcoin.domain.entities.Parcela;
 
 
 public interface ParcelaRepository extends JpaRepository<Parcela, Long> {

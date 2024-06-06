@@ -2,9 +2,9 @@ package br.com.gabriel.desafio_celcoin.repositories.divida;
 
 import java.util.List;
 
-import br.com.gabriel.desafio_celcoin.models.entities.Divida;
-import br.com.gabriel.desafio_celcoin.models.filters.DividaFilter;
-import br.com.gabriel.desafio_celcoin.models.filters.PageSpecification;
+import br.com.gabriel.desafio_celcoin.domain.entities.Divida;
+import br.com.gabriel.desafio_celcoin.domain.filters.DividaFilter;
+import br.com.gabriel.desafio_celcoin.domain.filters.PageSpecification;
 
 public interface DividaRepositoryCustom {
 

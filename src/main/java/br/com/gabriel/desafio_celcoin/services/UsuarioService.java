@@ -1,11 +1,12 @@
 package br.com.gabriel.desafio_celcoin.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import br.com.gabriel.desafio_celcoin.models.dtos.UsuarioDTO;
-import br.com.gabriel.desafio_celcoin.models.entities.Usuario;
-import br.com.gabriel.desafio_celcoin.models.forms.UsuarioForm;
+import br.com.gabriel.desafio_celcoin.domain.dtos.UsuarioDTO;
+import br.com.gabriel.desafio_celcoin.domain.entities.Usuario;
+import br.com.gabriel.desafio_celcoin.domain.forms.UsuarioForm;
 import br.com.gabriel.desafio_celcoin.repositories.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ public class UsuarioService {
 
     public UsuarioDTO registrarUsuario(@Valid UsuarioForm form) {
         if(usuarioRepository.existUsuario(form.email())) {
-            return null; 
+            throw new DataIntegrityViolationException("Usuario ja cadastrado"); 
         }
         return new UsuarioDTO(usuarioRepository.save(new Usuario(form)));      
     }

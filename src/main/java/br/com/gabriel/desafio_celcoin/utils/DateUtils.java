@@ -22,8 +22,8 @@ public abstract class DateUtils {
         var temp = ultimaParcela.plusMonths(1);
         var dia = (int) diaDoVencimento;
 
-        while (dataValida(temp.getMonth(), dia, temp.isLeapYear(), temp.getDayOfWeek())) {
-            temp.plusDays(1);
+        while (!dataValida(temp.getMonth(), dia, temp.isLeapYear(), temp.getDayOfWeek())) {
+            temp = temp.plusDays(1);
             dia = temp.getDayOfMonth();
         } 
 
@@ -43,7 +43,7 @@ public abstract class DateUtils {
             return false;
         }
 
-        if (diaSemana.equals(DayOfWeek.SUNDAY) || diaSemana.equals(DayOfWeek.MONDAY)) {
+        if (diaSemana.equals(DayOfWeek.SUNDAY) || diaSemana.equals(DayOfWeek.SATURDAY)) {
             return false;
         }
 

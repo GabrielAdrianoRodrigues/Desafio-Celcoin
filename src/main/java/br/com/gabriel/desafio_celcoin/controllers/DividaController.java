@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gabriel.desafio_celcoin.models.dtos.DividaDTO;
-import br.com.gabriel.desafio_celcoin.models.dtos.Page;
-import br.com.gabriel.desafio_celcoin.models.filters.DividaFilter;
-import br.com.gabriel.desafio_celcoin.models.filters.PageSpecification;
-import br.com.gabriel.desafio_celcoin.models.forms.DividaForm;
+import br.com.gabriel.desafio_celcoin.domain.dtos.DividaDTO;
+import br.com.gabriel.desafio_celcoin.domain.dtos.Page;
+import br.com.gabriel.desafio_celcoin.domain.filters.DividaFilter;
+import br.com.gabriel.desafio_celcoin.domain.filters.PageSpecification;
+import br.com.gabriel.desafio_celcoin.domain.forms.DividaForm;
 import br.com.gabriel.desafio_celcoin.services.DividaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

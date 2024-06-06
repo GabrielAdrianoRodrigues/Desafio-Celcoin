@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gabriel.desafio_celcoin.models.entities.Usuario;
-import br.com.gabriel.desafio_celcoin.models.forms.UsuarioForm;
+import br.com.gabriel.desafio_celcoin.domain.entities.Usuario;
+import br.com.gabriel.desafio_celcoin.domain.forms.UsuarioForm;
 import br.com.gabriel.desafio_celcoin.services.TokenService;
 import jakarta.validation.Valid;
 

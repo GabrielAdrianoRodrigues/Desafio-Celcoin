@@ -11,7 +11,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 
-import br.com.gabriel.desafio_celcoin.models.entities.Usuario;
+import br.com.gabriel.desafio_celcoin.domain.entities.Usuario;
 
 @Service
 public class TokenService {
