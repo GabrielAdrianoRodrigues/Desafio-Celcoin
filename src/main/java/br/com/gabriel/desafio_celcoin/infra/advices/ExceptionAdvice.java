@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 
 
 @RestControllerAdvice
+@SuppressWarnings("null")
 public class ExceptionAdvice {
 
     @ExceptionHandler(EntityNotFoundException.class)

@@ -58,9 +58,9 @@ public class UsuarioServiceTest {
     void registrarUsuariocase2() {
         when(usuarioRepository.existUsuario(any())).thenReturn(true);
 
-        usuarioService.registrarUsuario(new UsuarioForm("string", "string"));
-
+        
         DataIntegrityViolationException thrown = Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            usuarioService.registrarUsuario(new UsuarioForm("teste@test.com", "test"));
             usuarioService.registrarUsuario(new UsuarioForm("teste@test.com", "test"));
         });
 
