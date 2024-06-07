@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.com.gabriel.desafio_celcoin.domain.entities.Parcela;
+import jakarta.transaction.Transactional;
 
 
 public interface ParcelaRepository extends JpaRepository<Parcela, Long> {
@@ -16,6 +17,7 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long> {
     Optional<Parcela> findByDividaIdAndNumParcela(Long dividaId, Short numParcela);
 
     @Modifying
+    @Transactional
     @Query(value = """
             UPDATE bu_parcelas SET
                 par_status = 1,

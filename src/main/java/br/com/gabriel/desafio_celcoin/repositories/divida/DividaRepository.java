@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.com.gabriel.desafio_celcoin.domain.entities.Divida;
+import jakarta.transaction.Transactional;
 
 public interface DividaRepository extends JpaRepository<Divida, Long>, DividaRepositoryCustom {
     @Modifying
+    @Transactional
     @Query(value = """
             UPDATE bu_dividas SET
                 div_status = CASE
@@ -26,6 +28,7 @@ public interface DividaRepository extends JpaRepository<Divida, Long>, DividaRep
     void atualizarStatusDivida(@Param("dividaId") Long dividaId);
 
     @Modifying
+    @Transactional
     @Query(value = """
             DO LANGUAGE plpgsql $$
                 BEGIN

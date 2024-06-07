@@ -1,30 +1,28 @@
 package br.com.gabriel.desafio_celcoin.repositories;
 
+import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.RefreshMode.AFTER_EACH_TEST_METHOD;
+
 import java.time.LocalDate;
 import java.time.Month;
 
+import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ContextConfiguration;
 
-import br.com.gabriel.desafio_celcoin.EmbeddedPostgres.EmbeddedPostgresConfiguration.EmbeddedPostgresExtension;
-import br.com.gabriel.desafio_celcoin.EmbeddedPostgres.EmbeddedPostgresWithFlywayConfiguration;
 import br.com.gabriel.desafio_celcoin.domain.entities.Divida;
 import br.com.gabriel.desafio_celcoin.domain.entities.Parcela;
 import br.com.gabriel.desafio_celcoin.domain.enums.DividaStatus;
 import br.com.gabriel.desafio_celcoin.domain.enums.ParcelaStatus;
 import br.com.gabriel.desafio_celcoin.repositories.divida.DividaRepository;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 
+@FlywayTest
 @DataJpaTest
-@ExtendWith(EmbeddedPostgresExtension.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(classes = { EmbeddedPostgresWithFlywayConfiguration.class })
+@AutoConfigureEmbeddedDatabase(refresh = AFTER_EACH_TEST_METHOD)
 public class DividaRepositoryTest {
 
     @Autowired
@@ -42,6 +40,7 @@ public class DividaRepositoryTest {
                 .nomeCredor("teste")
                 .numeroParcelas((short) 1)
                 .taxaJuros(1.0)
+                .diaVencimentoParcela((short) 15)
             .build()
         );
 
@@ -69,6 +68,7 @@ public class DividaRepositoryTest {
                 .nomeCredor("teste")
                 .numeroParcelas((short) 1)
                 .taxaJuros(1.0)
+                .diaVencimentoParcela((short) 15)
             .build()
         );
 
