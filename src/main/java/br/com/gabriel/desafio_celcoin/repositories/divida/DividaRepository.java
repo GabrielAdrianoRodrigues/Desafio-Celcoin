@@ -14,7 +14,7 @@ public interface DividaRepository extends JpaRepository<Divida, Long>, DividaRep
     @Query(value = """
             UPDATE bu_dividas SET
                 div_status = CASE
-                    WHEN EXISTS(SELECT FROM bu_parcelas WHERE par_status = 2 AND fk_divida_id = :dividaId THEN
+                    WHEN EXISTS(SELECT FROM bu_parcelas WHERE par_status = 2 AND fk_divida_id = :dividaId) THEN
                         2
                     WHEN qtd_parcelas = (SELECT COUNT(*) FROM bu_parcelas WHERE par_status = 1 AND fk_divida_id = :dividaId) THEN
                         1
@@ -22,7 +22,6 @@ public interface DividaRepository extends JpaRepository<Divida, Long>, DividaRep
                         0
                 END
             WHERE id = :dividaId
-                AND 
         """, nativeQuery = true
     )
     void atualizarStatusDivida(@Param("dividaId") Long dividaId);

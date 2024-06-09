@@ -11,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import br.com.gabriel.desafio_celcoin.domain.entities.Divida;
 import br.com.gabriel.desafio_celcoin.domain.entities.Parcela;
@@ -19,6 +18,7 @@ import br.com.gabriel.desafio_celcoin.domain.enums.DividaStatus;
 import br.com.gabriel.desafio_celcoin.domain.enums.ParcelaStatus;
 import br.com.gabriel.desafio_celcoin.repositories.divida.DividaRepository;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import jakarta.persistence.EntityManager;
 
 @FlywayTest
 @DataJpaTest
@@ -29,7 +29,7 @@ public class DividaRepositoryTest {
     private DividaRepository dividaRepository;
 
     @Autowired
-    private TestEntityManager em;
+    private EntityManager em;
 
     @Test
     @DisplayName("Ao chamar a rotina de atualizacao deve atualizar o status para paga")
@@ -50,13 +50,12 @@ public class DividaRepositoryTest {
                 .valorParcela(100.00)
                 .numParcela((short) 1)
                 .dataVencimento(LocalDate.of(1, Month.JANUARY, 1))
-                .status(ParcelaStatus.PAGA)
             .build()
         );
 
         dividaRepository.atualizarStatusDivida(divida.getId());
 
-        Assertions.assertEquals(DividaStatus.PAGA, buscarDividaPorId(divida.getId()).getStatus());
+        Assertions.assertEquals(DividaStatus.PAGA, divida.getStatus());
     }
 
     @Test
@@ -89,6 +88,8 @@ public class DividaRepositoryTest {
 
     private Parcela createParcela(Parcela parcela) {
         em.persist(parcela);
+        parcela.setStatus(ParcelaStatus.PAGA);
+        em.merge(parcela);
         return parcela;
     }
 

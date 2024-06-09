@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.ActiveProfiles;
 
 import br.com.gabriel.desafio_celcoin.domain.dtos.UsuarioDTO;
 import br.com.gabriel.desafio_celcoin.domain.entities.Usuario;
@@ -28,6 +29,7 @@ import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 
 @FlywayTest
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureEmbeddedDatabase(refresh = AFTER_EACH_TEST_METHOD)
 public class UsuarioServiceTest {
     
@@ -47,6 +49,7 @@ public class UsuarioServiceTest {
     @DisplayName("Ao enviar qualquer usuario caso nao exista no banco grava-lo")
     void registrarUsuarioCase1() {
         when(usuarioRepository.existUsuario(any())).thenReturn(false);
+        when(usuarioRepository.save(any())).thenReturn(new Usuario(0l, "", ""));
 
         usuarioService.registrarUsuario(new UsuarioForm("teste@test.com", "test"));
 
@@ -58,7 +61,6 @@ public class UsuarioServiceTest {
     void registrarUsuariocase2() {
         when(usuarioRepository.existUsuario(any())).thenReturn(true);
 
-        
         DataIntegrityViolationException thrown = Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
             usuarioService.registrarUsuario(new UsuarioForm("teste@test.com", "test"));
             usuarioService.registrarUsuario(new UsuarioForm("teste@test.com", "test"));
