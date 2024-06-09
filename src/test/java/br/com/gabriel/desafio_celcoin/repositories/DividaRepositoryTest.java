@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import br.com.gabriel.desafio_celcoin.domain.entities.Divida;
 import br.com.gabriel.desafio_celcoin.domain.entities.Parcela;
@@ -18,7 +19,6 @@ import br.com.gabriel.desafio_celcoin.domain.enums.DividaStatus;
 import br.com.gabriel.desafio_celcoin.domain.enums.ParcelaStatus;
 import br.com.gabriel.desafio_celcoin.repositories.divida.DividaRepository;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
-import jakarta.persistence.EntityManager;
 
 @FlywayTest
 @DataJpaTest
@@ -29,7 +29,7 @@ public class DividaRepositoryTest {
     private DividaRepository dividaRepository;
 
     @Autowired
-    private EntityManager em;
+    private TestEntityManager em;
 
     @Test
     @DisplayName("Ao chamar a rotina de atualizacao deve atualizar o status para paga")
